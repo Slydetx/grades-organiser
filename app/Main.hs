@@ -1,4 +1,5 @@
 module Main where
+import GradesOrganiser (mainFunction)  
 
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = mainFunction
