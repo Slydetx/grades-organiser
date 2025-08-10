@@ -9,8 +9,6 @@ A simple command-line tool to help you keep track of your university grades, cal
 - Add and remove grades for modules
 - Show all saved grades
 - Calculate weighted average based on ECTS credits
-- Reset all data
-- Fun surprise command!
 
 ---
 
