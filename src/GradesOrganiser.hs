@@ -8,6 +8,9 @@ import Text.Printf (printf)
 import System.Directory (doesFileExist)
 import System.IO (writeFile)
 
+filepath::String
+filepath = "./grades.txt"
+
 commandsLoop :: IO ()
 commandsLoop = do
     hSetBuffering stdout NoBuffering
@@ -38,14 +41,14 @@ printCommands = putStrLn $ "\nACTIONS:"
 
 printFile :: IO ()
 printFile = do
-    withFile "grades.txt" ReadMode (\file ->
+    withFile filepath ReadMode (\file ->
         do
             text <- hGetContents file
             putStrLn text
         )
 
 addGrade :: IO ()
-addGrade = withFile "grades.txt" AppendMode (\file ->
+addGrade = withFile filepath AppendMode (\file ->
     do
         putStrLn "What is the name of the module?"
         name <- getLine
@@ -63,11 +66,11 @@ removeGrade :: IO()
 removeGrade = do
         putStrLn "Which module do you want to remove? (by name)"
         grade <- getLine
-        rawText <- readFile "grades.txt"
+        rawText <- readFile filepath
         _ <- evaluate (force rawText)
         let modules = lines rawText 
             filteredModules = cut takeName grade modules
-        file <- openFile "grades.txt" WriteMode  
+        file <- openFile filepath WriteMode  
         mapM_ (hPutStrLn file) filteredModules
         hClose file
      where
@@ -87,7 +90,7 @@ removeGrade = do
        
 
 average :: IO ()
-average = withFile "grades.txt" ReadMode ( \file -> do
+average = withFile filepath ReadMode ( \file -> do
         rawText <- hGetContents file
         let result = calcAverage rawText
         putStrLn $ "The average of your grades is " ++ show result ++ " ≈ " ++ formatNumber result
@@ -122,7 +125,7 @@ reset = do
     putStrLn "\n!! Are you sure you want to reset? (All your data will be lost) !! (y/n)"
     answer <- getChar
     if answer == 'y' then do 
-        file <- openFile "grades.txt" WriteMode
+        file <- openFile filepath WriteMode
         hPutStr file ""
         putStrLn "✓ Reset was successful"
         hClose file
@@ -136,9 +139,9 @@ reset = do
 
 ensureGradesFile :: IO ()
 ensureGradesFile = do
-    exists <- doesFileExist "grades.txt"
+    exists <- doesFileExist filepath
     if not exists
-        then writeFile "grades.txt" ""  -- create empty file
+        then writeFile filepath ""  -- create empty file
         else return ()
 
 mainFunction :: IO()
