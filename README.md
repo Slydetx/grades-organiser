@@ -15,12 +15,10 @@ A simple command-line tool to help you keep track of your university grades, cal
 - Show all saved grades
 - Calculate weighted average based on ECTS credits
 
-<div style="text-align: center; margin-top: 0;">
-    <video width="640" height="360" controls autoplay loop muted>
-        <source src="GradesOrganiser_showcase.mov" type="video/quicktime">
-        Your browser does not support the video tag.
-    </video>
-</div>
+<a style="text-align: center; margin-top: 0;">
+  <img src="GradesOrganiser_showcase.gif"  width="640" height="360">
+</a>
+
 ---
 
 ## ✏️ Get started
