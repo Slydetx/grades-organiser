@@ -94,7 +94,7 @@ average = withFile "grades.txt" ReadMode ( \file -> do
        )
     where
         firstDigit :: [String] -> Integer
-        firstDigit [] = error "There aro no modules"
+        firstDigit [] = error "There are no modules"
         firstDigit (x:xs) | all isDigit x =  read x
                           | head x == '(' = read $ [(head . tail) x]
                           | otherwise = firstDigit xs
