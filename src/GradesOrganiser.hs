@@ -93,11 +93,10 @@ average = withFile "grades.txt" ReadMode ( \file -> do
         putStrLn $ "The average of your grades is " ++ show result ++ " ≈ " ++ formatNumber result
        )
     where
-        firstDigit :: [String] -> Integer
-        firstDigit [] = error "There are no modules"
-        firstDigit (x:xs) | all isDigit x =  read x
-                          | head x == '(' = read $ [(head . tail) x]
-                          | otherwise = firstDigit xs
+        getECTS :: [String] -> Integer
+        getECTS [] = error "There are no modules"
+        getECTS (x:xs)    | head x == '(' = read $ (init . init . tail) x --remove first parenthesis, remove colon, remove last parenthesis
+                          | otherwise = getECTS xs
         
         dotProduct :: Num a => [a] -> [a] -> [a]
         dotProduct []      []    = []
@@ -107,7 +106,7 @@ average = withFile "grades.txt" ReadMode ( \file -> do
         calcAverage rawText =
             let modules = lines rawText
                 contentsOfModules = map words modules
-                listECTS   = map firstDigit contentsOfModules
+                listECTS   = map getECTS contentsOfModules
                 listGrades = map (read . last) contentsOfModules
                 listPerentageECTS = map ((/ fromIntegral ( sum listECTS)) . fromIntegral) listECTS
                 result = sum $ dotProduct listPerentageECTS listGrades 
