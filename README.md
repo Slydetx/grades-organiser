@@ -1,18 +1,29 @@
-# Grades Organiser
+<h1 align = "center" style = "margin-bottom: 0;">
+    <br>
+    📘 Grades Organiser
+</h1>
 
-A simple command-line tool to help you keep track of your university grades, calculate averages, and manage your study modules easily.
+<p align="center" style="margin-top: 0"> 
+A simple command-line tool to help you keep track of your university grades, calculate averages and manage your study modules easily.
+</p>
 
 ---
 
-## Features
+## 📘 Features
 
 - Add and remove grades for modules
 - Show all saved grades
 - Calculate weighted average based on ECTS credits
 
+<div style="text-align: center; margin-top: 0;">
+    <video width="640" height="360" controls autoplay loop muted>
+        <source src="GradesOrganiser_showcase.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+    </video>
+</div>
 ---
 
-## Getting Started
+## ✏️ Get started
 
 ### Prerequisites
 
@@ -30,3 +41,8 @@ cd grades-organiser
 ```bash
 cabal build
 cabal run
+```
+
+>[!NOTE]
+>This program does not use a database to store data. Instead, it saves everything in a text file named grades.txt in the project folder.
+>If you delete this file, all your data will be lost.
