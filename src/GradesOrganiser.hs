@@ -2,6 +2,7 @@ module GradesOrganiser where
     
 import System.IO
 import Data.Char
+import Data.List (dropWhileEnd)
 import Control.Exception (evaluate)
 import Control.DeepSeq (force)
 import Text.Printf (printf)
@@ -18,7 +19,7 @@ commandsLoop = do
 
     putStr "cmd>"
     input <- getLine
-    case  dropWhile (== ' ') input  of
+    case  trim input  of
         "help"        -> printCommands >> commandsLoop
         "add grade"   -> addGrade >> commandsLoop
         "remove grade"-> removeGrade >> commandsLoop
@@ -26,8 +27,10 @@ commandsLoop = do
         "average"     -> average >> commandsLoop
         "reset"       -> reset >> commandsLoop
         ""            -> commandsLoop
-        "exit"        -> putStrLn "-------------------------------------------"
+        cmd | cmd `elem` ["exit", "quit", "q"] -> putStrLn "-------------------------------------------"
         _ -> putStrLn "This command doesn't exist" >> commandsLoop
+ where
+    trim = dropWhileEnd isSpace . dropWhile isSpace
 
 printCommands :: IO ()
 printCommands = putStrLn $ "\nACTIONS:"
